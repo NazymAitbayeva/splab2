@@ -10,20 +10,12 @@ int main(int argc, char* argv[]){
 		exit(-1);	
 	}
 	int t = 0;
-	pid_t p1 = fork();
-	if(p1==0){
+	pid_t p4 = fork();
+	if(p4==0){
 		int a = atoi(argv[1]);
 		int b = atoi(argv[2]);
-		t = a+b;
-		printf("child1: %d+%d=%d\n",a,b,t);
-		exit(0);
-	}
-	pid_t p2 = fork();
-	if(p2==0){	
-		int a = atoi(argv[1]);
-		int b = atoi(argv[2]);
-		t = a-b;
-		printf("child2: %d-%d=%d\n",a,b,t);
+		t = a / b; 
+		printf("child4: %d/%d=%d\n",a,b,t);
 		exit(0);
 	}
 	pid_t p3 = fork();
@@ -34,12 +26,20 @@ int main(int argc, char* argv[]){
 		printf("child3: %d*%d=%d\n",a,b,t);
 		exit(0);	
 	}
-	pid_t p4 = fork();
-	if(p4==0){
+	pid_t p2 = fork();
+	if(p2==0){	
 		int a = atoi(argv[1]);
 		int b = atoi(argv[2]);
-		t = a / b; 
-		printf("child4: %d/%d=%d\n",a,b,t);
+		t = a-b;
+		printf("child2: %d-%d=%d\n",a,b,t);
+		exit(0);
+	}
+	pid_t p1 = fork();
+	if(p1==0){
+		int a = atoi(argv[1]);
+		int b = atoi(argv[2]);
+		t = a+b;
+		printf("child1: %d+%d=%d\n",a,b,t);
 		exit(0);
 	}
 	waitpid(p4,0,0);
